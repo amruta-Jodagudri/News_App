@@ -10,15 +10,13 @@ const News=(props)=>{
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
-  // document.title = `${capitalizeFirstLetter(props.category)} - NewsPadho`;
-
   //to capitalize the title
   const capitalizeFirstLetter=(string)=> {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   const updateNews= async () => {
-    const url = `https://newsapi.org/v2/top-headlines?&country=${props.country}&category=${props.category}&apiKey=a078fcf6433c4a2ea3cc45f2bce9f4ba&page=1&pageSize=${props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?&country=${props.country}&category=${props.category}&apiKey=b4c3875a1d8843b280bda42697e4d7a6&page=1&pageSize=${props.pageSize}`;
     setLoading(true);
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -33,12 +31,13 @@ const News=(props)=>{
   }
 
   useEffect(() => {
+    document.title = `${capitalizeFirstLetter(props.category)} - NewsPadho`;
     updateNews();
   }, []);
   
   const fetchMoreData =async() => {
+    let url = `https://newsapi.org/v2/top-headlines?&country=${props.country}&category=${props.category}&apiKey=b4c3875a1d8843b280bda42697e4d7a6&page=${page+1}&pageSize=${props.pageSize}`;
     setPage(page+1);
-    let url = `https://newsapi.org/v2/top-headlines?&country=${props.country}&category=${props.category}&apiKey=a078fcf6433c4a2ea3cc45f2bce9f4ba&page=1&pageSize=${props.pageSize}`;
     setLoading(true);
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -50,7 +49,7 @@ const News=(props)=>{
 
   return (
       <div className='container my-3 mx-12'>
-        <h1 className='text-center'>NewsPadho - Top {capitalizeFirstLetter(props.category)} headlines</h1>
+        <h1 className='text-center' style={{margin:'35px 0px', marginTop:'85px'}}>NewsPadho - Top {capitalizeFirstLetter(props.category)} Headlines</h1>
         {/* {loading && <Spinner/>}
         <div className="row my-3">
         {!loading && articles.map((element)=>{
