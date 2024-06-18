@@ -1,8 +1,8 @@
-import React, {useEffect,useState} from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 import NewsItem from './NewsItem';
 import Spinner from './Spinner';
-import PropTypes from 'prop-types';
-import InfiniteScroll from "react-infinite-scroll-component";
 
 const News=(props)=>{
   const [articles, setArticles] = useState([]);
@@ -20,7 +20,6 @@ const News=(props)=>{
     setLoading(true);
     let data = await fetch(url);
     let parsedData = await data.json();
-    // Check if parsedData.articles is defined before updating state
     if (parsedData.articles) {
       setArticles(parsedData.articles);
       setTotalResults(parsedData.totalResults);
